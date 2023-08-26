@@ -8,8 +8,9 @@ import (
 	"sync"
 )
 
-// fan-in pattern is used to merge
-// multiple chain entries into a single result chain
+// fan-in pattern is used to merge multiple chain entries into a single result channel.
+// In this example, merge1 and merge2 demonstrates 2 ways to handle
+// different channel sources into a single channel item.
 func main() {
 	// 1 - declaring the multiple entry points, the channels themselves...
 	ch1, err := read("file1.csv")

@@ -7,6 +7,10 @@ import (
 	"os"
 )
 
+// fan-out pattern is when multiple functions read from the same channel
+// generating multiple outputs in the process.
+// The channel that is concurrently read in this example is the one
+// created by the 'read' method.
 func main() {
 	// 1 - create a channel from the read info in the csv file
 	ch1, err := read("file1.csv")
@@ -45,7 +49,8 @@ func main() {
 }
 
 // breakup creates a goroutine that concurrently tries to read from
-// channel 'ch' and closes a 'closing channek' at the process end.
+// channel 'ch' and returns one 'breaking' channel used to split the
+// 'ch' original source
 func breakup(worker string, ch <-chan []string) chan struct{} {
 	// 1 - declares exiting channel
 	chE := make(chan struct{})
